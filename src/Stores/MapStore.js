@@ -69,6 +69,10 @@ class BankStore extends EventEmitter {
         this.addBathroom(action.data);
         break;
       }
+      case "FETCH_COORDS": {
+        this.fetchCoords();
+        break;
+      }
     }
   }
 

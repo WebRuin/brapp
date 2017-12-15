@@ -6,21 +6,25 @@ import MapStore from "../../Stores/MapStore";
 
 import style from './renderMap.css'
 
-
 export default class RenderMap extends Component {
-  static defaultProps = {
-    center: { lat: 40.7446790, lng: -73.9485420 },
-    zoom: 11
-  }
-
   constructor(props) {
     super(props)
     this.state = {
       coords: MapStore.getAll(),
+      mapCenter: { lat: 40.7446790, lng: -73.9485420 },
+      mapZoom: 11,
     }
   }
 
   componentWillMount() {
+    if ("geolocation" in navigator) {
+      let self = this
+      navigator.geolocation.getCurrentPosition(function(position) {
+        self.setState({
+          mapCenter: { lat: position.coords.latitude, lng:position.coords.longitude }
+        })
+      });
+    }
     MapStore.on("change", this.getCoords);
   }
 
@@ -48,8 +52,8 @@ export default class RenderMap extends Component {
       <div className='google-map'>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyDSuCrywX_-TbCb-0zQrrQ0W8ksCc8jL-U' }}
-          defaultCenter={ this.props.center }
-          defaultZoom={ this.props.zoom }>
+          defaultCenter={ this.state.mapCenter }
+          defaultZoom={ this.state.mapZoom }>
           { mapCoords }
         </GoogleMapReact>
       </div>
