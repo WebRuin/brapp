@@ -2,7 +2,7 @@ import dispatcher from "../dispatcher";
 
 export function addBathroom(bathroom) {
   dispatcher.dispatch({
-    type: "ADD_ENTRY",
+    type: "ADD_BATHROOM",
     bathroom
   });
 }

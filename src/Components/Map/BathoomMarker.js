@@ -6,8 +6,6 @@ export default class BathoomMarker extends Component {
     super(props)
   }
 
-
-
   render() {
     let bathroomMarker_Name_Open = this.props.$hover ? 'bathroomMarker--name' : 'bathroomMarker--name__closed'
 

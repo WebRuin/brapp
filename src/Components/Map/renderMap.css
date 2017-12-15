@@ -1,6 +1,7 @@
 .google-map {
   width: 100vw;
   height: 100vh;
+  position: relative;
 }
 
 .bathroomMarker {
@@ -28,4 +29,41 @@
   color: #fff;
   font-weight: bold;
   display: none;
+}
+
+.addBathroomForm {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 300px;
+  padding: 10px; 
+  text-align: left;
+  background-color: rgba(0,0,0,0.75);
+}
+
+.addBathroomForm form {
+  width: 90%;
+}
+
+
+.addBathroomForm form div span {
+  color: #fff;
+}
+
+.addBathroomForm form button {
+  margin-left: auto;
+}
+
+.addBathroomForm form div span,
+.addBathroomForm form div input,
+.addBathroomForm form div button {
+  margin-top: 10px;
+  padding: 5px;
+  display: block;
+}
+
+.addBathroomForm form div,
+.addBathroomForm form div input,
+.addBathroomForm form div span {
+  width: 100%;
 }

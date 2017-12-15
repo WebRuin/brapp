@@ -7,7 +7,9 @@
     "geocoder": "^0.2.3",
     "google-map-react": "^0.25.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "uuid": "^3.1.0",
+    "uuid-v4": "^0.1.0"
   },
   "devDependencies": {
     "react-scripts": "1.0.17"

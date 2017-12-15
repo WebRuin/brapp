@@ -14,6 +14,8 @@ export default class RenderMap extends Component {
       mapCenter: { lat: 40.7446790, lng: -73.9485420 },
       mapZoom: 11,
     }
+
+    this.getCoords = this.getCoords.bind(this)
   }
 
   componentWillMount() {

@@ -1,5 +1,6 @@
 import { EventEmitter } from "events";
 
+import uuid from "uuid-v4";
 import dispatcher from "../dispatcher";
 import geocoder from "geocoder";
 
@@ -58,15 +59,22 @@ class BankStore extends EventEmitter {
   }
 
   addBathroom(bathroom) {
-    geocoder.geocode("bathroom.address", function ( err, data ) {
-      console.log(data);
+    let th = this
+    geocoder.geocode(bathroom.address, function ( err, data ) {
+      th.state.coords.push({
+        bathroomID: uuid(),
+        lat: data.results[0].geometry.location.lat,
+        lng: data.results[0].geometry.location.lng,
+        name: bathroom.name
+      })
     });
+    this.emit("change")
   }
 
   handleActions(action) {
     switch(action.type) {
       case "ADD_BATHROOM": {
-        this.addBathroom(action.data);
+        this.addBathroom(action.bathroom);
         break;
       }
       case "FETCH_COORDS": {
