@@ -31,6 +31,20 @@
   display: none;
 }
 
+.addBathroomFormButton {
+  background-color: red;
+  border-radius: 100%;
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  width: 60px;
+  height: 60px;
+  font-size: 40px;text-align: center;
+  vertical-align: middle;
+  line-height: 60px;
+  color: #fff;
+}
+
 .addBathroomForm {
   position: absolute;
   bottom: 1rem;

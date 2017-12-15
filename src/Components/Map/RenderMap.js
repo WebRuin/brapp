@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react'
-import BathoomMarker from './BathoomMarker'
-import * as MapActions from "../../Actions/MapActions";
+import BathroomMarker from './BathroomMarker'
 import MapStore from "../../Stores/MapStore";
 
 import style from './renderMap.css'
@@ -11,8 +10,8 @@ export default class RenderMap extends Component {
     super(props)
     this.state = {
       coords: MapStore.getAll(),
-      mapCenter: { lat: 40.7446790, lng: -73.9485420 },
-      mapZoom: 11,
+      mapCenter: { lat:37.5670279, lng:-122.3238017 },
+      mapZoom: 15,
     }
 
     this.getCoords = this.getCoords.bind(this)
@@ -22,11 +21,18 @@ export default class RenderMap extends Component {
     if ("geolocation" in navigator) {
       let self = this
       navigator.geolocation.getCurrentPosition(function(position) {
+        console.log('set location')
         self.setState({
           mapCenter: { lat: position.coords.latitude, lng:position.coords.longitude }
         })
       });
+    } else {
+      console.log('not set')
     }
+
+    this.setState({
+      mapZoom: 15,
+    })
     MapStore.on("change", this.getCoords);
   }
 
@@ -42,7 +48,7 @@ export default class RenderMap extends Component {
 
   render() {
     let mapCoords = this.state.coords.map((mapCoord, index) =>
-      <BathoomMarker
+      <BathroomMarker
         style={ { height: "30px", width: "160px" } }
         key={ index }
         lat={ mapCoord.lat }
@@ -54,7 +60,8 @@ export default class RenderMap extends Component {
       <div className='google-map'>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyDSuCrywX_-TbCb-0zQrrQ0W8ksCc8jL-U' }}
-          defaultCenter={ this.state.mapCenter }
+          defaultCenter={{ lat:37.5670279, lng:-122.3238017 }}
+          center={ this.state.mapCenter }
           defaultZoom={ this.state.mapZoom }>
           { mapCoords }
         </GoogleMapReact>

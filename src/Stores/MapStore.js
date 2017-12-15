@@ -5,9 +5,11 @@ import dispatcher from "../dispatcher";
 import geocoder from "geocoder";
 
 class BankStore extends EventEmitter {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    this.toggleAddBathroomFormState = this.toggleAddBathroomFormState.bind(this)
     this.state = {
+      isAddBathroomFormOpen: false,
       coords: [
         {
           lat: 23.5958633,
@@ -58,6 +60,10 @@ class BankStore extends EventEmitter {
     return this.state.coords;
   }
 
+  setAddBathroomFormState() {
+    return this.state.isAddBathroomFormOpen
+  }
+
   addBathroom(bathroom) {
     let th = this
     geocoder.geocode(bathroom.address, function ( err, data ) {
@@ -68,7 +74,13 @@ class BankStore extends EventEmitter {
         name: bathroom.name
       })
     });
-    this.emit("change")
+    this.emit("change");
+    this.toggleAddBathroomFormState()
+  }
+
+  toggleAddBathroomFormState() {
+    this.state.isAddBathroomFormOpen = !this.state.isAddBathroomFormOpen;
+    this.emit("change");
   }
 
   handleActions(action) {
@@ -76,6 +88,10 @@ class BankStore extends EventEmitter {
       case "ADD_BATHROOM": {
         this.addBathroom(action.bathroom);
         break;
+      }
+      case "TOGGLE_ADD_BATHROOM_STATE": {
+        this.toggleAddBathroomFormState();
+        break
       }
       case "FETCH_COORDS": {
         this.fetchCoords();

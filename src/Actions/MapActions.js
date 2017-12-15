@@ -7,8 +7,14 @@ export function addBathroom(bathroom) {
   });
 }
 
+export function toggleAddBathroomFormState() {
+  dispatcher.dispatch({
+    type: "TOGGLE_ADD_BATHROOM_STATE",
+  });
+}
+
 export function fetchCoords() {
   dispatcher.dispatch({
-    type: "FETCH_COORDS"
+    type: "FETCH_COORDS",
   });
 }
