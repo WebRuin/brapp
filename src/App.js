@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RenderMap from './Components/RenderMap';
+import RenderMap from './Components/Map/RenderMap';
 import './App.css';
 
 class App extends Component {
