@@ -1,0 +1,19 @@
+{
+  "name": "brapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "google-map-react": "^0.25.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.17"
+  },
+  "scripts": {
+    "start": "PORT=3006 react-scripts start",
+    "build": "PORT=3006 react-scripts build",
+    "test": "PORT=3006 react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
