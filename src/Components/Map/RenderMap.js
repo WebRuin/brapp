@@ -1,23 +1,47 @@
-import React, { Component } from 'react'
-import GoogleMapReact from 'google-map-react'
-import BathroomMarker from './BathroomMarker'
+import React, { Component } from 'react';
+import GoogleMapReact from 'google-map-react';
+import BathroomMarker from './BathroomMarker';
 import MapStore from "../../Stores/MapStore";
+import firebase, { auth, provider } from "../../firebase";
 
-import style from './renderMap.css'
+
+import './renderMap.css'
 
 export default class RenderMap extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      coords: MapStore.getAll(),
+      coords: [],
       mapCenter: { lat:37.5670279, lng:-122.3238017 },
       mapZoom: 15,
+      user: null
     }
 
     this.getCoords = this.getCoords.bind(this)
   }
 
   componentWillMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ user });
+      } 
+    });
+    const itemsRef = firebase.database().ref('items');
+    itemsRef.on('value', (snapshot) => {
+      let items = snapshot.val();
+      let newState = [];
+      for (let item in items) {
+        newState.push({
+          lat: items[item].lat,
+          lng: items[item].lng,
+          name: items[item].name
+        });
+      }
+      this.setState({
+        coords: newState
+      });
+    });
+
     if ("geolocation" in navigator) {
       let self = this
       navigator.geolocation.getCurrentPosition(function(position) {

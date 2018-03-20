@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^4.11.0",
     "flux": "^3.1.3",
     "geocoder": "^0.2.3",
     "google-map-react": "^0.25.0",
@@ -16,9 +17,9 @@
     "react-scripts": "1.0.17"
   },
   "scripts": {
-    "start": "PORT=3006 react-scripts start",
-    "build": "PORT=3006 react-scripts build",
-    "test": "PORT=3006 react-scripts test --env=jsdom",
+    "start": "PORT=3333 react-scripts start",
+    "build": "PORT=3333 react-scripts build",
+    "test": "PORT=3333 react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }

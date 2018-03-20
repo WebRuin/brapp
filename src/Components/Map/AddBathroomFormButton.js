@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import * as MapActions from '../../Actions/MapActions';
 
-import styles from './renderMap.css';
+import './renderMap.css';
 
 export default class AddBathroomFormButton extends Component {
   handleToggleBathroomForm() {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import style from './renderMap.css'
+import './renderMap.css'
 
 export default class BathoomMarker extends Component {
   render() {
