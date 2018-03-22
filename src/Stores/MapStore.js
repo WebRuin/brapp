@@ -1,8 +1,8 @@
 import { EventEmitter } from "events";
+import firebase, { auth, provider } from "../firebase";
 
 import dispatcher from "../dispatcher";
 import geocoder from "geocoder";
-import firebase from "../firebase";
 
 class MapStore extends EventEmitter {
   constructor(props) {
@@ -10,12 +10,27 @@ class MapStore extends EventEmitter {
     this.toggleAddBathroomFormState = this.toggleAddBathroomFormState.bind(this)
     this.state = {
       isAddBathroomFormOpen: false,
-      coords: []
-    };
+      coords: [],
+      user: null
+    };  
+    this.getUser = this.getUser.bind(this);
+    this.addBathroom = this.addBathroom.bind(this);
   } 
 
   getAll() {
     return this.state.coords;
+  }
+
+  getUser() {
+    let self = this;
+    let newUser = null;
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        newUser: user;
+      } 
+    });
+    this.state.user = newUser;
+    return this.state.user;
   }
 
   setAddBathroomFormState() {
@@ -23,13 +38,16 @@ class MapStore extends EventEmitter {
   }
 
   addBathroom(bathroom) {
+    let self = this;
     geocoder.geocode(bathroom.address, function ( err, data ) {
       const itemsRef = firebase.database().ref('items');
       const item = {
         lat: data.results[0].geometry.location.lat,
         lng: data.results[0].geometry.location.lng,
-        name: bathroom.name
+        name: bathroom.name,
+        user: self.state.user
       }
+      console.table(item);
       itemsRef.push(item);
     });
     this.emit("change");
@@ -53,6 +71,12 @@ class MapStore extends EventEmitter {
       }
       case "FETCH_COORDS": {
         this.fetchCoords();
+        break;
+      }
+      case "GET_USER": {
+        this.getUser();
+      }
+      default: {
         break;
       }
     }

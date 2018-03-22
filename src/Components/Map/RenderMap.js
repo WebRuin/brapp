@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import BathroomMarker from './BathroomMarker';
 import MapStore from "../../Stores/MapStore";
-import firebase, { auth, provider } from "../../firebase";
+import firebase from "../../firebase";
 
 
 import './renderMap.css'
@@ -13,19 +13,13 @@ export default class RenderMap extends Component {
     this.state = {
       coords: [],
       mapCenter: { lat:37.5670279, lng:-122.3238017 },
-      mapZoom: 15,
-      user: null
+      mapZoom: 15
     }
 
     this.getCoords = this.getCoords.bind(this)
   }
 
   componentWillMount() {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
-      } 
-    });
     const itemsRef = firebase.database().ref('items');
     itemsRef.on('value', (snapshot) => {
       let items = snapshot.val();
@@ -34,7 +28,8 @@ export default class RenderMap extends Component {
         newState.push({
           lat: items[item].lat,
           lng: items[item].lng,
-          name: items[item].name
+          name: items[item].name,
+          user: items[item].user,        
         });
       }
       this.setState({

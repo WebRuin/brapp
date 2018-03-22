@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import RenderMap from './Components/Map/RenderMap';
 import AddBathroomForm from './Components/Map/AddBathroomForm';
 import AddBathroomFormButton from './Components/Map/AddBathroomFormButton';
+import Nav from './Components/Layout/Nav';
 import MapStore from './Stores/MapStore';
 
 import './App.css';
@@ -36,6 +37,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <Nav />
         <RenderMap />
         { addBathroomFormState }
       </div>

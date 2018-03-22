@@ -18,8 +18,8 @@
   },
   "scripts": {
     "start": "PORT=3333 react-scripts start",
-    "build": "PORT=3333 react-scripts build",
-    "test": "PORT=3333 react-scripts test --env=jsdom",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }

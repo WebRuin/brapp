@@ -18,3 +18,9 @@ export function fetchCoords() {
     type: "FETCH_COORDS",
   });
 }
+
+export function getData() {
+  dispatcher.dispatch({
+    type: "GET_DATA",
+  });
+}
